@@ -1,32 +1,70 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link class="nav-link active" to="/">Inicio</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/busqueda"
+                >Búsquedas</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/ventas">Ventas</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="total">Total</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-    <router-view/>
+
+    <transition name="vista">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
+<script>
+import { mapActions } from "vuex";
+export default {
+  name: "App",
+  created() {
+    this.getData();
+  },
+  methods: {
+    ...mapActions(["getData"]),
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-nav {
-  padding: 30px;
+.vista-enter-active,
+.vista-leave-active {
+  transition: opacity 0.1s;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.vista-enter,
+.vista-leave-to {
+  opacity: 0;
 }
 </style>
